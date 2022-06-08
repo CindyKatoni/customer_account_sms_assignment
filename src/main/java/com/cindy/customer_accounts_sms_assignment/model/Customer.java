@@ -29,7 +29,8 @@ public class Customer {
         @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Account> accounts = new HashSet<>();
 
-        public Long getId() {
+
+    public Long getId() {
             return id;
         }
 
