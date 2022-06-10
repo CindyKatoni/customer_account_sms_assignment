@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
+@Data //tO Generate boilerplate code.
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity //to make class an entity
 @Table(name = "20952_account")
 public class Account {
         @Id
@@ -18,7 +18,9 @@ public class Account {
 
         private String accName;
 
+        //Fetch type LAZY tells hibernate to only fetch related entities from the db
         @ManyToOne(fetch = FetchType.LAZY)
+        //JoinColumn annotation to specify foreign key
         @JoinColumn(name="customer_id", nullable = false)
         private Customer customer;
     }

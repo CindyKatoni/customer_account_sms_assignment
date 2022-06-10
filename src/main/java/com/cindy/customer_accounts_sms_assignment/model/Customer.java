@@ -26,13 +26,17 @@ public class Customer {
         @Column(name = "phoneNumber", nullable = false)
         private String phoneNumber;
 
+        //Cascade type all to save the parent along with the child,
+        //Orphan removal to remove child when parent is removed
         @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+        //Use Set since it doesn't allow duplicates
         private Set<Account> accounts = new HashSet<>();
 
 
+
     public Long getId() {
-            return id;
-        }
+        return id;
+    }
 
         public void setId(Long id) {
             this.id = id;

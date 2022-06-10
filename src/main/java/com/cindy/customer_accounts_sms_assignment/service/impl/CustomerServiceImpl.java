@@ -1,10 +1,10 @@
 package com.cindy.customer_accounts_sms_assignment.service.impl;
 
+import com.cindy.customer_accounts_sms_assignment.exception.ResourceNotFoundException;
 import com.cindy.customer_accounts_sms_assignment.model.Customer;
 import com.cindy.customer_accounts_sms_assignment.payload.CustomerDto;
 import com.cindy.customer_accounts_sms_assignment.repository.CustomerRepository;
 import com.cindy.customer_accounts_sms_assignment.service.CustomerService;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,13 +35,19 @@ public class CustomerServiceImpl implements CustomerService {
         return customerResponse;
     }
 
+
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
         return customers.stream().map(customer -> mapToDto(customer)).collect(Collectors.toList());
-
     }
 
+    @Override
+    public CustomerDto getCustomerById(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Customer", "id", id));
+
+        return mapToDto(customer);
+    }
 
 
     //Create a private method to reuse it. DTO to Entity
